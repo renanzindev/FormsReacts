@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Botao from './components/botao';
 import Input from './components/input';
+import RegistrationForm from './components/registrationForm';
 
 // Componente para os Botões
 export function BotaoExemplo() {
@@ -26,26 +27,31 @@ export function InputExemplo() {
   );
 }
 
-// Exportação padrão se precisar de um componente principal
+// Componente principal do App com controle de exibição
 function App() {
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
+  // Função para voltar aos componentes
+  const handleVoltar = () => {
+    setMostrarFormulario(false);
+  };
+
   return (
     <div className="App">
       <h1>Exemplo de Componentes Reutilizáveis</h1>
-      <BotaoExemplo />
-      <InputExemplo />
+      <button onClick={() => setMostrarFormulario(false)}>Mostrar Componentes</button>
+      <button onClick={() => setMostrarFormulario(true)}>Mostrar Formulário</button>
+
+      {mostrarFormulario ? (
+        <RegistrationForm onVoltar={handleVoltar} titulo="Cadastro de Usuário" />
+      ) : (
+        <>
+          <BotaoExemplo />
+          <InputExemplo />
+        </>
+      )}
     </div>
   );
 }
 
-// Componente principal com o Formulário Exemplo
-function Forms() {
-  return (
-    <div className="Forms">
-      
-      {/* Uso do novo componente de formulário com título customizável */}
-      <formularioExemplo titulo="Cadastro de Usuário" />
-      <formularioExemplo titulo="Formulário de Contato" />
-    </div>
-  );
-}
 export default App;
